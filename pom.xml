@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.springframework.samples</groupId>
     <artifactId>spring-framework-petclinic</artifactId>
-    <version>5.2.4</version>
+    <version>5.3.1</version>
 
     <name>Spring Framework Petclinic</name>
     <packaging>war</packaging>
@@ -23,41 +23,40 @@
         <!-- Spring -->
         <!-- For framework compatibility, refer to the Spring Boot Dependencies BOM -->
         <!-- https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-dependencies/build.gradle -->
-        <spring-framework.version>5.2.4.RELEASE</spring-framework.version>
+        <spring-framework.version>5.3.1</spring-framework.version>
 
         <!-- Web dependencies -->
         <!-- Version update should also be done in wro.xml, petclinic.less and static resources: htmlHeader.tag and footer.tag-->
         <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
-        <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
-        <webjars-jquery.version>2.2.4</webjars-jquery.version>
+        <webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
+        <webjars-jquery.version>3.5.1</webjars-jquery.version>
         <wro4j.version>1.8.0</wro4j.version> <!-- wro4j 1.0.0 requires Java 9 -->
 
         <!-- Java EE / Java SE dependencies -->
-        <tomcat.version>9.0.31</tomcat.version>
+        <tomcat.version>9.0.39</tomcat.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
-        <jaxb-core.version>2.3.0.1</jaxb-core.version>
-        <jaxb-impl.version>2.3.2</jaxb-impl.version>
-        <activation.version>1.1.1</activation.version>
+        <jaxb-runtime.version>2.3.3</jaxb-runtime.version>
+        <javax-activation.version>1.2.0</javax-activation.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <taglibs-standard.version>1.2.5</taglibs-standard.version>
 
         <!-- Persistence -->
-        <spring-data-releasetrain.version>Moore-RELEASE</spring-data-releasetrain.version>
-        <hibernate.version>5.4.11.Final</hibernate.version>
-        <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
-        <hsqldb.version>2.5.0</hsqldb.version>
+        <spring-data.version>2020.0.0</spring-data.version>
+        <hibernate.version>5.4.22.Final</hibernate.version>
+        <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
+        <hsqldb.version>2.5.1</hsqldb.version>
+        <h2database.version>1.4.200</h2database.version>
 
         <!-- Logging -->
         <slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.2.3</logback.version>
 
         <!-- Test -->
-        <assertj.version>3.15.0</assertj.version>
-        <jacoco.version>0.8.2</jacoco.version>
+        <assertj.version>3.18.0</assertj.version>
         <json-path.version>2.4.0</json-path.version>
-        <mockito.version>3.1.0</mockito.version>
-        <hamcrest.version>2.1</hamcrest.version>
-        <junit-jupiter.version>5.6.0</junit-jupiter.version>
+        <mockito.version>3.6.0</mockito.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <junit-jupiter.version>5.7.0</junit-jupiter.version>
 
         <!-- JDBC Drivers -->
         <mysql-driver.version>8.0.19</mysql-driver.version>
@@ -69,15 +68,16 @@
 
         <!-- Maven plugins -->
         <jetty-maven-plugin.version>9.4.24.v20191120</jetty-maven-plugin.version>
-        <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
-        <maven-war-plugin.version>3.2.2</maven-war-plugin.version>
+        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
+        <jacoco-maven-plugin>0.8.6</jacoco-maven-plugin>
 
         <!-- Docker image -->
-        <docker.jib-maven-plugin.version>1.7.0</docker.jib-maven-plugin.version>
+        <docker.jib-maven-plugin.version>2.6.0</docker.jib-maven-plugin.version>
         <docker.image.prefix>springcommunity</docker.image.prefix>
 
     </properties>
@@ -93,8 +93,8 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-releasetrain</artifactId>
-                <version>${spring-data-releasetrain.version}</version>
+                <artifactId>spring-data-bom</artifactId>
+                <version>${spring-data.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -279,19 +279,14 @@
             <version>${jaxb-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>${jaxb-core.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>${jaxb-impl.version}</version>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb-runtime.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>${activation.version}</version>
+            <artifactId>javax.activation-api</artifactId>
+            <version>${javax-activation.version}</version>
         </dependency>
 
     </dependencies>
@@ -383,7 +378,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>${jacoco-maven-plugin}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -470,10 +465,29 @@
 
     <profiles>
         <profile>
-            <id>HSQLDB</id>
+            <id>H2</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <db.script>h2</db.script>
+                <jpa.database>H2</jpa.database>
+                <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+                <jdbc.url>jdbc:h2:mem:petclinic</jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password/>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${h2database.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>HSQLDB</id>
             <properties>
                 <db.script>hsqldb</db.script>
                 <jpa.database>HSQL</jpa.database>
@@ -496,7 +510,7 @@
             <properties>
                 <db.script>mysql</db.script>
                 <jpa.database>MYSQL</jpa.database>
-                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+                <jdbc.driverClassName>com.mysql.cj.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url>jdbc:mysql://localhost:3306/petclinic?useUnicode=true</jdbc.url>
                 <jdbc.username>petclinic</jdbc.username>
                 <jdbc.password>petclinic</jdbc.password>

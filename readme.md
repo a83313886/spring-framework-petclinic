@@ -40,8 +40,8 @@ Our issue tracker is available here: https://github.com/spring-petclinic/spring-
 
 ## Database configuration
 
-In its default configuration, Petclinic uses an in-memory database (HSQLDB) which
-gets populated at startup with data.
+In its default configuration, Petclinic uses an in-memory database (H2) which gets populated at startup with data.
+
 A similar setups is provided for MySQL and PostgreSQL in case a persistent database configuration is needed.
 To run petclinic locally using persistent database, it is needed to run with profile defined in main pom.xml file.
 
@@ -58,7 +58,7 @@ Before do this, would be good to check properties defined in MySQL profile insid
     <jpa.database>MYSQL</jpa.database>
     <jdbc.driverClassName>com.mysql.cj.jdbc.Driver</jdbc.driverClassName>
     <jdbc.url>jdbc:mysql://localhost:3306/petclinic?useUnicode=true</jdbc.url>
-    <jdbc.username>root</jdbc.username>
+    <jdbc.username>petclinic</jdbc.username>
     <jdbc.password>petclinic</jdbc.password>
 </properties>
 ```      
@@ -91,6 +91,17 @@ You could also start PostgreSQL locally with whatever installer works for your O
 ```
 docker run --name postgres-petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 -d postgres:9.6.0
 ```
+
+## Persistence layer choice
+
+The persistence layer habve 3 available implementations: JPA (default), JDBC and Spring Data JPA.
+The default JPA implementation could be changed by using a Spring profile: `jdbc`, `spring-data-jpa` and `jpa`.  
+As an example, you may use the `-Dspring.profiles.active=jdbc` VM options to start the application with the JDBC implementation.
+
+```
+./mvnw jetty:run-war -Dspring.profiles.active=jdbc
+```
+
 
 ## Working with Petclinic in your IDE
 
